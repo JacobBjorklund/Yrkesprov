@@ -1,6 +1,5 @@
 render()
 
-
 async function render() {
     const res = await fetch('/api/movies')
     let data = await res.json()
@@ -16,14 +15,6 @@ async function render() {
         renderTable(data);
     });
 
-    document.querySelector('#sortByYear').addEventListener('click', () => {
-        let minYear = document.querySelector('min-year').value
-        let maxYear = document.querySelector('max-year').value
-        data = data.filter(
-            movie => movie.releaseDate >= minYear && movie.releaseDate <= maxYear
-        )
-        renderTable(data)
-    })
     renderTable()
     function renderTable() {
         document.querySelector('#parent').innerHTML = `
