@@ -1,6 +1,6 @@
-render()
+fetchapi()
 
-async function render() {
+async function fetchapi() {
     const res = await fetch('/api/movies')
     let data = await res.json()
     console.log(data);
@@ -8,15 +8,14 @@ async function render() {
     document.querySelector('#sortByRating').addEventListener('click', () => {
         let minRating = document.querySelector('#min-rating').value;
         let maxRating = document.querySelector('#max-rating').value;
-        data = data.filter(
+        let data2 = data.filter(
             movie => Math.floor(movie.rating * 100) >= minRating && Math.floor(movie.rating * 100) <= maxRating
         );
-
-        renderTable(data);
+        renderTable(data2);
     });
 
-    renderTable()
-    function renderTable() {
+    renderTable(data)
+    function renderTable(json) {
         document.querySelector('#parent').innerHTML = `
     <table>
         <tr>
@@ -36,7 +35,7 @@ async function render() {
                 Rating
             </th>
         </tr>
-        ${data.map(movie => `<tr>
+        ${json.map(movie => `<tr>
          <td>${movie.title} </td>
           <td>${movie.releaseDate.substring(0, 4)}</td>
            <td>${movie.age} </td>
